@@ -1,11 +1,11 @@
 # -*_coding:utf8-*-
-import json
 # import smtplib
-import sys
-import time
 # from email.header import Header
 # from email.mime.text import MIMEText
 # from datetime import datetime
+import json
+import sys
+import time
 from lxml import etree
 import requests
 import base64
@@ -17,8 +17,6 @@ import re
 
 
 loginUrl = 'https://auth.sziit.edu.cn/authserver/login?service=https%3A%2F%2Fsziit.cpdaily.com%2Fportal%2Flogin' # 学校登陆网址
-# xh = input('请输入学号:')  # 学号
-# pwd = input('请输入信息门户密码:')  # 密码
 xh = 'xxx'  # 学号 自行修改
 pwd = 'xxx'  # 密码 自行修改
 
