@@ -3,8 +3,8 @@
 # from email.header import Header
 # from email.mime.text import MIMEText
 # from datetime import datetime
+# import sys
 import json
-import sys
 import time
 from lxml import etree
 import requests
@@ -26,7 +26,7 @@ pwd = 'xxx'  # 密码 自行修改
 # password1 = '***********'  # 密钥
 # smtp_server = 'smtp.exmail.qq.com' # 以腾讯企业邮箱smtp服务器为例
 
-# 模拟前端CryptoJS加密，一些学校不需要可以删掉
+# 模拟前端CryptoJS加密，一些学校不需要可以忽略
 aes_chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'
 aes_chars_len = len(aes_chars)
 def randomString(len):
@@ -121,19 +121,18 @@ def submit():
             if flag > 3:
                 # mail("今日重试次数过多,请手动提交!")
                 print(server.get("https://sziit.cpdaily.com/portal/logout", cookies=cookies))  # 退出登录
-                # time.sleep(24 * 60 * 60)
-                # continue
-
-                # return "今日重试次数过多,请手动提交!"
+                time.sleep(24 * 60 * 60)
+                continue
             server.get("https://sziit.cpdaily.com/portal/logout", cookies=cookies) # 退出登录
-            break
+            time.sleep(1 * 60 * 60)
+            continue
         row = res.json()['datas']['rows'][0]
         if row['isHandled'] == 1:
             print("今日已经填写:" + res.text)
             # mail("今日已经填写")
             server.get("https://sziit.cpdaily.com/portal/logout", cookies=cookies)
-            # time.sleep(24 * 60 * 60)
-            # continue
+            time.sleep(24 * 60 * 60)
+            continue
         collectWid = res.json()['datas']['rows'][0]['wid']
         formWid = res.json()['datas']['rows'][0]['formWid']
 
@@ -143,7 +142,7 @@ def submit():
 
         res = requests.post(url='https://sziit.cpdaily.com/wec-counselor-collector-apps/stu/collector/getFormFields',
                             headers=headers, cookies=cookies, data=json.dumps(
-                {"pageSize": 15, "pageNumber": 1, "formWid": formWid, "collectorWid": collectWid})) # 当前我们需要问卷选项有21个，pageSize可适当调整
+                {"pageSize": 20, "pageNumber": 1, "formWid": formWid, "collectorWid": collectWid})) # 当前我们需要问卷选项有13个，pageSize可适当调整
 
         form = res.json()['datas']['rows']
         # 过滤表单
@@ -183,28 +182,25 @@ def submit():
 
         if msg == 'SUCCESS':
             print('今日提交成功！24小时后，脚本将再次自动提交')
-            message = '今日提交成功！24小时后，脚本将再次自动提交'
+            # message = '今日提交成功！24小时后，脚本将再次自动提交'
             # mail(message)
             time.sleep(24 * 60 * 60)
             continue
         elif msg == '该收集已填写无需再次填写':
             print('该收集已填写无需再次填写')
-            message = '该收集已填写无需再次填写'
+            # message = '该收集已填写无需再次填写'
             # mail(message)
-            # time.sleep(24 * 60 * 60)
-            # continue
-            break
+            time.sleep(24 * 60 * 60)
+            continue
         else:
             print('失败' + r.text)
-            message = '出错了，错误如下 ' + r.text
+            # message = '出错了，错误如下 ' + r.text
             if flag > 3:
-                pass
                 # mail(message+"今日重试次数过多,请手动提交!")
-                # time.sleep(24 * 60 * 60)
-                # return "今日重试次数过多,请手动提交!"
+                time.sleep(24 * 60 * 60)
+                continue
             time.sleep(1 * 60 * 60)
-            break
-        # return message
+            continue
 
 # def mail(msg):
 #     message = MIMEText(msg, 'plain', 'utf-8')
