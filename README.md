@@ -18,10 +18,11 @@ python form-auto.py
 ### 其他学校学生：
 - 替换学号和密码
 - 将代码中的'sziit'全局替换为自己学校的host
-- 抓包获取上报表单的相关参数，相关教程可以自行baidu/google，参考https://github.com/ZimoLoveShuang/auto-submit
+- 抓包获取上报表单的相关参数，相关教程可以自行baidu/google，参考https://github.com/ZimoLoveShuang/auto-submit 
 
 ## 注意
-- 可搭配windows计划任务或者linux定时任务实现自动填写提交
-- 学校下发的问卷内容有时会改变，建议设置自动填写时间为发布的后两小时
-- 代码仅供学习参考，不得用于其他用途
+- 程序中默认填写为健康状态，异常情况请勿使用。
+- 可搭配windows计划任务或者linux定时任务实现自动填写提交。
+- 学校下发的问卷内容有时会改变，建议设置自动填写时间为发布的后两小时。
+- 代码仅供学习参考，不得用于其他用途。
 
