@@ -12,13 +12,13 @@ pwd = 'xxx'  # 密码 自行修改
 ```
 - 在装有python环境的机器运行以下命令
 ```
+pip install -r requirements.txt
 python form-auto.py
 ```
 ### 其他学校学生：
 - 替换学号和密码
 - 将代码中的'sziit'全局替换为自己学校的host
 - 抓包获取上报表单的相关参数，相关教程可以自行baidu/google，参考https://github.com/ZimoLoveShuang/auto-submit
-- 运行程序
 
 ## 注意
 - 可搭配windows计划任务或者linux定时任务实现自动填写提交
